@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Enable .NET analyzers -->
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+		<!-- Use the strongest analysis ruleset (includes security rules) -->
+		<AnalysisLevel>latest</AnalysisLevel>
+
+		<!-- Enable all analyzer rules that ship in the package -->
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+
+		<!-- Optional: treat all CA warnings as warnings (not build-breaking) -->
+		<WarningsAsErrors></WarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Full .NET security & quality analyzers -->
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" PrivateAssets="all" />
+
+		<!-- Other dependencies -->
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+</Project>
