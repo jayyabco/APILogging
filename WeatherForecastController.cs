@@ -13,7 +13,8 @@ namespace WebApplication2.Controllers
         [HttpGet("GetWeatherForecast")]
         public IActionResult GetData()
         {
-            try
+            Exception ex1 = new Exception("Test exception");
+            /*try
             {
                 throw new InvalidOperationException("Simulated exception for testing.");
             }
@@ -21,7 +22,8 @@ namespace WebApplication2.Controllers
             {
                 // expose stack trace
                 return Ok(ex.StackTrace);
-            }
+            } */
+            return Ok(ex1.StackTrace);
         }
 
         [HttpGet("GetWeatherForecast2")]
