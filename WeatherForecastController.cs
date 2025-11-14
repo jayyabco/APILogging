@@ -1,28 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json.Serialization;
 
-namespace WebApplication1.Controllers
+namespace WebApplication2.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController()
         {
-            _logger = logger;
         }
 
-        [HttpGet("a/APILogging")]
-        public async Task<IActionResult> APILogging()
-        {
-            CalcRepo calcRepo = new CalcRepo();
-            var result = await calcRepo.PostSync(5, 10);
-            return Ok(result);
-        }
-
-        [HttpGet("a/GetData")]
+        [HttpGet("GetWeatherForecast")]
         public IActionResult GetData()
         {
             try
@@ -31,22 +19,37 @@ namespace WebApplication1.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while processing GetData.");
-
-                var data = new Data
-                {
-                    ID = 1,
-                    StackTrace = ex.StackTrace ?? string.Empty
-                };
-                return Ok(data);
+                // expose stack trace
+                return Ok(ex.StackTrace);
             }
         }
 
-        public class Data
+        [HttpGet("GetWeatherForecast2")]
+        public IActionResult GetData2()
         {
-            public int ID { get; set; }
+            try
+            {
+                throw new Exception("Normal exception.");
+            }
+            catch (Exception ex)
+            {
+                // expose stack trace
+                return Ok(ex);
+            }
+        }
 
-            public string StackTrace { get; set; } = string.Empty;
+        [HttpGet("GetWeatherForecast3")]
+        public IActionResult GetData3()
+        {
+            try
+            {
+                throw new ArgumentNullException("NULL exception for testing.");
+            }
+            catch (Exception ex)
+            {
+                // expose stack trace
+                return BadRequest(ex.StackTrace);
+            }
         }
     }
 }
